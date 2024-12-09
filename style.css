@@ -92,10 +92,11 @@ button:hover {
     color: #333;
     width: 100%;
     max-width: auto;
-    height: 100px;
+    height: auto;
+    min-height: 180px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -139,4 +140,41 @@ button:hover {
     margin: 0 auto 20px; /* Center the header and add spacing below */
     width: 100%; /* Ensure the header spans the full width of the container */
     color: #007bff; /* Modern highlight for the title */
+}
+
+/* Visual Grid Preview Styles */
+.visual-preview {
+    display: flex;
+    width: 100%;
+    height: 60px;
+    margin-top: 15px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.grid-column {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #007bff20, #007bff40);
+    border: 1px solid #007bff;
+    position: relative;
+    transition: background 0.3s ease;
+}
+
+.grid-column:hover {
+    background: linear-gradient(135deg, #007bff30, #007bff50);
+}
+
+.grid-column .column-fraction {
+    font-size: 0.8rem;
+    color: #007bff;
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+/* Ensure columns are visually separated */
+.grid-column + .grid-column {
+    border-left: none;
 }

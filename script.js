@@ -31,7 +31,7 @@ document.getElementById('column-form').addEventListener('submit', function (e) {
 
     // Generate and display variation grid
     variationsGrid.innerHTML = variations
-        .map(variation => {
+        .map((variation, index) => {
             const validVariation = variation.filter(val => val > 0); // Remove trailing zeros
             const fractionSplit = validVariation
                 .map(col => `${col}/${totalColumns}`)
@@ -45,10 +45,23 @@ document.getElementById('column-form').addEventListener('submit', function (e) {
                 })
                 .join(' + '); // Format as percentages
 
+            // Generate visual grid preview
+            const visualGrid = `
+                <div class="visual-preview">
+                    ${validVariation.map(col => {
+                        const width = (col / totalColumns) * 100;
+                        return `<div class="grid-column" style="width: ${width}%">
+                            <span class="column-fraction">${col}/${totalColumns}</span>
+                        </div>`;
+                    }).join('')}
+                </div>
+            `;
+
             return `
             <div class="variation-card">
                 <div class="split-fraction">${fractionSplit}</div>
                 <div class="split-percentage">${percentageSplit}</div>
+                ${visualGrid}
             </div>`;
         })
         .join("");
