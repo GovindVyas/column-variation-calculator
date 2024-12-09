@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Column Variation Calculator</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+
+  <div class="calculator-container">
+    <h1>Column Variation Calculator</h1>
+
+    <form id="column-form">
+      <label for="columns">Number of Columns (1-8):</label>
+      <input type="number" id="columns" min="1" max="8" required>
+
+      <label for="splits">Number of Splits (1 to total columns):</label>
+      <input type="number" id="splits" min="1" required>
+
+      <button type="submit">Calculate Variations</button>
+    </form>
+
+    <!-- Error message placeholder -->
+    <div id="error-message" class="error-message"></div>
+
+    <!-- Results header -->
+    <div id="results-header" class="results-header"></div>
+
+    <!-- Variations grid -->
+    <div id="variations" class="variation-grid"></div>
+  </div>
+
+  <script src="./script.js"></script>
+
+</body>
+
+</html>

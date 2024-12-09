@@ -1,0 +1,142 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+.calculator-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    text-align: center;
+    color: #333;
+}
+
+.text-center {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+label {
+    font-weight: bold;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+.error-message {
+    color: #ff0000;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    display: none; /* Hidden by default */
+}
+
+#output {
+    margin-top: 20px;
+}
+
+.results-header {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #007bff;
+}
+.variation-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.variation-card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    width: 100%;
+    max-width: auto;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.variation-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.split-fraction {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    color: #007bff;
+}
+
+.split-percentage {
+    font-size: 1rem;
+    color: #555;
+}
+
+.variation-card p:nth-child(2) {
+    color: #555;
+    font-size: 1rem;
+    margin-top: 8px;
+}
+
+#variations {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+#variations h3 {
+    text-align: center; /* Center the text horizontally */
+    font-size: 2rem; /* Enhanced size for a modern look */
+    margin: 0 auto 20px; /* Center the header and add spacing below */
+    width: 100%; /* Ensure the header spans the full width of the container */
+    color: #007bff; /* Modern highlight for the title */
+}
