@@ -4,6 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Column Variation Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style.css">
 
 </head>
@@ -11,13 +14,13 @@
 <body>
 
   <div class="calculator-container">
-    <h1>Column Variation Calculator</h1>
+    <h1>Grid Column Variation Calculator</h1>
 
     <form id="column-form">
       <label for="columns">Number of Columns (1-8):</label>
       <input type="number" id="columns" min="1" max="8" required>
 
-      <label for="splits">Number of Splits (1 to total columns):</label>
+      <label for="splits">Number of Splits:</label>
       <input type="number" id="splits" min="1" required>
 
       <button type="submit">Calculate Variations</button>
