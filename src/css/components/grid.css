@@ -1,0 +1,43 @@
+/* Visual Grid Preview */
+.visual-preview {
+    display: flex;
+    width: 100%;
+    height: 80px;
+    margin-top: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--light-primary);
+    padding: 2px 2px 0 2px;
+    box-sizing: border-box;
+}
+
+.grid-column {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--light-primary), var(--light-secondary));
+    border: 2px solid var(--primary-color);
+    border-left: 2px solid var(--primary-color);
+    border-right: 2px solid var(--primary-color);
+    padding: 2px 2px 0 2px;
+    position: relative;
+    transition: all 0.3s ease;
+    margin: 0 1px;
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.grid-column:hover {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+.grid-column:hover .column-fraction {
+    color: var(--white);
+}
+
+.grid-column .column-fraction {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}

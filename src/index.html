@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Column Variation Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+    <div class="calculator-container">
+        <h1>Grid Column Variation Calculator</h1>
+
+        <form id="column-form">
+            <label for="columns">Number of Columns (1-8):</label>
+            <input type="number" id="columns" min="1" max="8" required>
+
+            <label for="splits">Number of Splits:</label>
+            <input type="number" id="splits" min="1" required>
+
+            <div class="button-group">
+                <button type="submit" class="primary-button">
+                    <i class="fas fa-calculator"></i> Calculate Variations
+                </button>
+                <button type="reset" class="secondary-button">
+                    <i class="fas fa-redo"></i> Reset
+                </button>
+            </div>
+        </form>
+
+        <div id="error-message" class="error-message"></div>
+        <div id="results-header" class="results-header"></div>
+        <div id="variations" class="variation-grid"></div>
+    </div>
+
+    <script type="module" src="./js/main.js"></script>
+</body>
+</html>

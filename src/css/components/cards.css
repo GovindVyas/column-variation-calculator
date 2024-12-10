@@ -1,0 +1,46 @@
+/* Variation Cards */
+.variation-card {
+    background: var(--white);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--gray-200);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+    height: auto;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+}
+
+.variation-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+}
+
+.split-fraction {
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--primary-color);
+}
+
+.split-percentage {
+    font-size: 1rem;
+    color: var(--secondary-color);
+    opacity: 0.8;
+}
+
+.variation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-xl);
+    padding: var(--spacing-lg);
+}
+
+@media (max-width: 768px) {
+    .variation-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,49 @@
+/* Variables */
+:root {
+    /* Colors */
+    --primary-color: #bc89ff;
+    --secondary-color: #5e4580;
+    --light-primary: rgba(188, 137, 255, 0.1);
+    --light-secondary: rgba(94, 69, 128, 0.1);
+    --white: #ffffff;
+    --gray-100: #f8f9fa;
+    --gray-200: #e9ecef;
+    --gray-300: #dee2e6;
+    --error-color: #dc3545;
+    
+    /* Spacing */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 15px;
+    --spacing-lg: 20px;
+    --spacing-xl: 30px;
+    
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(94, 69, 128, 0.1);
+    --shadow-md: 0 4px 6px rgba(94, 69, 128, 0.1);
+    --shadow-lg: 0 8px 16px rgba(94, 69, 128, 0.1);
+    --shadow-hover: 0 12px 24px rgba(94, 69, 128, 0.12);
+}
+
+/* Base Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--gray-100);
+    color: var(--secondary-color);
+}
+
+/* Typography */
+h1, h2, .results-header {
+    text-align: center;
+    color: var(--secondary-color);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
