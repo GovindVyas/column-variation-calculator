@@ -185,6 +185,54 @@ button:hover {
     transition: color 0.3s ease;
 }
 
+.button-group {
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.primary-button, .secondary-button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+}
+
+.primary-button {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+.primary-button:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(94, 69, 128, 0.2);
+}
+
+.secondary-button {
+    background: var(--light-primary);
+    color: var(--secondary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.secondary-button:hover {
+    background: var(--light-secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(94, 69, 128, 0.1);
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .calculator-container {
@@ -194,5 +242,14 @@ button:hover {
     
     .variation-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .button-group {
+        flex-direction: column;
+    }
+    
+    .primary-button, .secondary-button {
+        width: 100%;
+        justify-content: center;
     }
 }

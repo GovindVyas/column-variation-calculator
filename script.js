@@ -1,3 +1,10 @@
+document.getElementById('column-form').addEventListener('reset', function(e) {
+    // Clear the results and error message
+    document.getElementById('error-message').style.display = 'none';
+    document.getElementById('results-header').textContent = '';
+    document.getElementById('variations').innerHTML = '';
+});
+
 document.getElementById('column-form').addEventListener('submit', function (e) {
     e.preventDefault();
 
