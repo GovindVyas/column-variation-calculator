@@ -1,104 +1,147 @@
-document.getElementById('column-form').addEventListener('reset', function(e) {
-    // Clear the results and error message
-    document.getElementById('error-message').style.display = 'none';
-    document.getElementById('results-header').textContent = '';
-    document.getElementById('variations').innerHTML = '';
-});
+// DOM Elements
+const elements = {
+    form: document.getElementById('column-form'),
+    columnsInput: document.getElementById('columns'),
+    splitsInput: document.getElementById('splits'),
+    errorMessage: document.getElementById('error-message'),
+    resultsHeader: document.getElementById('results-header'),
+    variationsGrid: document.getElementById('variations')
+};
 
-document.getElementById('column-form').addEventListener('submit', function (e) {
-    e.preventDefault();
+// Configuration
+const config = {
+    maxColumns: 8,
+    minColumns: 1,
+    minSplits: 1
+};
 
-    // Get user input
-    const totalColumns = parseInt(document.getElementById('columns').value);
-    const splits = parseInt(document.getElementById('splits').value);
+// Utility Functions
+const utils = {
+    validateInput(columns, splits) {
+        if (splits > columns) {
+            throw new Error('Number of splits cannot be greater than the number of columns.');
+        }
+        if (columns > config.maxColumns || columns < config.minColumns) {
+            throw new Error(`Number of columns must be between ${config.minColumns} and ${config.maxColumns}.`);
+        }
+        if (splits < config.minSplits) {
+            throw new Error('Number of splits must be at least 1.');
+        }
+    },
 
-    // Get the error message container
-    const errorMessage = document.getElementById('error-message');
-    const resultsHeader = document.getElementById('results-header');
-    const variationsGrid = document.getElementById('variations');
+    formatFraction(col, total) {
+        return `${col}/${total}`;
+    },
 
-    // Validate input
-    if (splits > totalColumns || totalColumns > 8 || totalColumns < 1 || splits < 1) {
-        errorMessage.textContent =
-            "Invalid input: Splits must be less than or equal to columns, and columns must be between 1 and 8.";
-        errorMessage.style.display = "block"; // Show the error message
-        resultsHeader.textContent = ""; // Clear results header
-        variationsGrid.innerHTML = ""; // Clear variations grid
-        return;
+    formatPercentage(col, total) {
+        const percentage = (col / total) * 100;
+        return percentage % 1 === 0 
+            ? `${percentage.toFixed(0)}% width`
+            : `${percentage.toFixed(2)}% width`;
+    },
+
+    clearResults() {
+        elements.errorMessage.style.display = 'none';
+        elements.resultsHeader.textContent = '';
+        elements.variationsGrid.innerHTML = '';
     }
+};
 
-    // Hide the error message if input is valid
-    errorMessage.style.display = "none";
+// Core Calculator Functions
+const calculator = {
+    getCombinations(total, splits) {
+        if (splits === 1) return [[total]];
+        const combinations = [];
+        for (let i = 1; i <= total; i++) {
+            const subCombinations = this.getCombinations(total - i, splits - 1);
+            subCombinations.forEach(subCombo => {
+                combinations.push([i, ...subCombo]);
+            });
+        }
+        return combinations;
+    },
 
-    // Calculate variations
-    const variations = calculateSplits(totalColumns, splits);
+    calculateSplits(totalColumns, splits) {
+        const results = [];
+        const splitCombinations = this.getCombinations(totalColumns, splits);
 
-    // Update results header
-    resultsHeader.textContent = `${variations.length} Variation(s) Found:`;
+        splitCombinations.forEach(combo => {
+            if (combo.reduce((a, b) => a + b, 0) === totalColumns && !combo.includes(0)) {
+                results.push(combo);
+            }
+        });
+        return results;
+    }
+};
 
-    // Generate and display variation grid
-    variationsGrid.innerHTML = variations
-        .map((variation, index) => {
-            const validVariation = variation.filter(val => val > 0); // Remove trailing zeros
-            const fractionSplit = validVariation
-                .map(col => `${col}/${totalColumns}`)
-                .join(' + '); // Format as fractions
-            const percentageSplit = validVariation
-                .map(col => {
-                    const percentage = (col / totalColumns) * 100;
-                    return percentage % 1 === 0 // Check if whole number
-                        ? `${percentage.toFixed(0)}% width`
-                        : `${percentage.toFixed(2)}% width`;
-                })
-                .join(' + '); // Format as percentages
+// UI Generation
+const ui = {
+    showError(message) {
+        elements.errorMessage.textContent = message;
+        elements.errorMessage.style.display = 'block';
+        utils.clearResults();
+    },
 
-            // Generate visual grid preview
-            const visualGrid = `
-                <div class="visual-preview">
-                    ${validVariation.map(col => {
-                        const width = (col / totalColumns) * 100;
-                        return `<div class="grid-column" style="width: ${width}%">
-                            <span class="column-fraction">${col}/${totalColumns}</span>
-                        </div>`;
-                    }).join('')}
-                </div>
-            `;
+    generateVariationCard(variation, totalColumns) {
+        const validVariation = variation.filter(val => val > 0);
+        const fractionSplit = validVariation
+            .map(col => utils.formatFraction(col, totalColumns))
+            .join(' + ');
+        const percentageSplit = validVariation
+            .map(col => utils.formatPercentage(col, totalColumns))
+            .join(' + ');
 
-            return `
+        const visualGrid = this.generateVisualGrid(validVariation, totalColumns);
+
+        return `
             <div class="variation-card">
                 <div class="split-fraction">${fractionSplit}</div>
                 <div class="split-percentage">${percentageSplit}</div>
                 ${visualGrid}
             </div>`;
-        })
-        .join("");
-});
+    },
 
-// Function to calculate all split column variations
-function calculateSplits(totalColumns, splits) {
-    const results = [];
-    const splitCombinations = getCombinations(totalColumns, splits);
+    generateVisualGrid(variation, totalColumns) {
+        return `
+            <div class="visual-preview">
+                ${variation.map(col => {
+                    const width = (col / totalColumns) * 100;
+                    return `<div class="grid-column" style="width: ${width}%">
+                        <span class="column-fraction">${col}/${totalColumns}</span>
+                    </div>`;
+                }).join('')}
+            </div>`;
+    },
 
-    splitCombinations.forEach(combo => {
-        if (combo.reduce((a, b) => a + b, 0) === totalColumns) {
-            // Exclude variations containing 0
-            if (!combo.includes(0)) {
-                results.push(combo);
-            }
-        }
-    });
-    return results;
-}
-
-// Function to generate combinations
-function getCombinations(total, splits) {
-    if (splits === 1) return [[total]];
-    const combinations = [];
-    for (let i = 1; i <= total; i++) {
-        const subCombinations = getCombinations(total - i, splits - 1);
-        subCombinations.forEach(subCombo => {
-            combinations.push([i, ...subCombo]);
-        });
+    displayResults(variations, totalColumns) {
+        elements.resultsHeader.textContent = `${variations.length} Variation(s) Found:`;
+        elements.variationsGrid.innerHTML = variations
+            .map(variation => this.generateVariationCard(variation, totalColumns))
+            .join('');
     }
-    return combinations;
+};
+
+// Event Handlers
+function handleSubmit(e) {
+    e.preventDefault();
+    
+    const totalColumns = parseInt(elements.columnsInput.value);
+    const splits = parseInt(elements.splitsInput.value);
+
+    try {
+        utils.validateInput(totalColumns, splits);
+        const variations = calculator.calculateSplits(totalColumns, splits);
+        utils.clearResults();
+        ui.displayResults(variations, totalColumns);
+    } catch (error) {
+        ui.showError(error.message);
+    }
 }
+
+function handleReset() {
+    utils.clearResults();
+}
+
+// Event Listeners
+elements.form.addEventListener('submit', handleSubmit);
+elements.form.addEventListener('reset', handleReset);
