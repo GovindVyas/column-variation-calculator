@@ -1,5 +1,6 @@
-import { utils } from './utils.js';
+import { utils, config } from './utils.js';
 import { exportUtils } from './export.js';
+import { calculator } from './calculator.js';
 
 export const ui = {
     showError(message, elements) {
@@ -7,40 +8,47 @@ export const ui = {
         elements.errorMessage.style.display = 'block';
     },
 
-    generateVariationCard(variation, totalColumns) {
-        const validVariation = variation.filter(val => val > 0);
-        const fractionSplit = validVariation
-            .map(col => utils.formatFraction(col, totalColumns))
-            .join(' + ');
-        const percentageSplit = validVariation
+    generateBreakpointGrid(variation, totalColumns, breakpoint) {
+        const percentageSplit = variation
             .map(col => utils.formatPercentage(col, totalColumns))
             .join(' + ') + ' width';
 
-        const visualGrid = this.generateVisualGrid(validVariation, totalColumns);
-
         return `
-            <div class="variation-card">
-                <div class="split-fraction">${fractionSplit}</div>
+            <div class="breakpoint-section">
+                <div class="breakpoint-label">
+                    <i class="fas fa-${breakpoint === 'desktop' ? 'desktop' : breakpoint === 'tablet' ? 'tablet' : 'mobile-alt'}"></i>
+                    ${config.breakpoints[breakpoint].name}
+                </div>
+                <div class="visual-preview">
+                    ${variation.map(col => {
+                        const width = (col / totalColumns) * 100;
+                        return `<div class="grid-column" style="width: ${width}%">
+                            <span class="column-fraction">${col}/${totalColumns}</span>
+                        </div>`;
+                    }).join('')}
+                </div>
                 <div class="split-percentage">${percentageSplit}</div>
-                ${visualGrid}
             </div>`;
     },
 
-    generateVisualGrid(variation, totalColumns) {
+    generateVariationCard(variationData, totalColumns) {
+        const { variation, responsive } = variationData;
+        const breakpoints = Object.keys(config.breakpoints);
+        
         return `
-            <div class="visual-preview">
-                ${variation.map(col => {
-                    const width = (col / totalColumns) * 100;
-                    return `<div class="grid-column" style="width: ${width}%">
-                        <span class="column-fraction">${col}/${totalColumns}</span>
-                    </div>`;
-                }).join('')}
+            <div class="variation-card">
+                <div class="responsive-grid">
+                    ${breakpoints.map(breakpoint => 
+                        this.generateBreakpointGrid(responsive[breakpoint], totalColumns, breakpoint)
+                    ).join('')}
+                </div>
             </div>`;
     },
 
     displayResults(variations, totalColumns, elements) {
+        const responsiveVariations = calculator.calculateResponsiveVariations(variations, totalColumns);
         elements.resultsHeader.textContent = `${variations.length} Variation(s) Found:`;
-        elements.variationsGrid.innerHTML = variations
+        elements.variationsGrid.innerHTML = responsiveVariations
             .map(variation => this.generateVariationCard(variation, totalColumns))
             .join('');
         
@@ -49,23 +57,25 @@ export const ui = {
     },
 
     setupExportHandlers(elements, variations, totalColumns) {
+        const responsiveVariations = calculator.calculateResponsiveVariations(variations, totalColumns);
+        
         elements.exportJSON.addEventListener('click', () => {
-            const json = exportUtils.generateJSON(variations, totalColumns);
+            const json = exportUtils.generateJSON(responsiveVariations, totalColumns);
             exportUtils.downloadFile(json, 'grid-variations.json');
         });
 
         elements.exportCSV.addEventListener('click', () => {
-            const csv = exportUtils.generateCSV(variations, totalColumns);
+            const csv = exportUtils.generateCSV(responsiveVariations, totalColumns);
             exportUtils.downloadFile(csv, 'grid-variations.csv');
         });
 
         elements.exportHTML.addEventListener('click', () => {
-            const html = exportUtils.generateHTML(variations, totalColumns);
+            const html = exportUtils.generateHTML(responsiveVariations, totalColumns);
             exportUtils.downloadFile(html, 'grid-variations.html');
         });
 
         elements.copyClipboard.addEventListener('click', async () => {
-            const success = await exportUtils.copyToClipboard(variations, totalColumns);
+            const success = await exportUtils.copyToClipboard(responsiveVariations, totalColumns);
             if (success) {
                 const originalText = elements.copyClipboard.innerHTML;
                 elements.copyClipboard.innerHTML = '<i class="fas fa-check"></i> Copied!';

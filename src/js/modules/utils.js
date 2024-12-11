@@ -2,7 +2,12 @@
 export const config = {
     maxColumns: 8,
     minColumns: 1,
-    minSplits: 1
+    minSplits: 1,
+    breakpoints: {
+        desktop: { name: 'Desktop', minWidth: 1024 },
+        tablet: { name: 'Tablet', minWidth: 768, maxWidth: 1023 },
+        mobile: { name: 'Mobile', maxWidth: 767 }
+    }
 };
 
 // Utility Functions

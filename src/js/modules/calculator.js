@@ -22,5 +22,21 @@ export const calculator = {
             }
         });
         return results;
+    },
+
+    getResponsiveLayout(variation, totalColumns) {
+        // For tablet and mobile, we'll convert multi-column layouts to single column
+        return {
+            desktop: variation,
+            tablet: variation.length > 1 ? [totalColumns] : variation,
+            mobile: variation.length > 1 ? [totalColumns] : variation
+        };
+    },
+
+    calculateResponsiveVariations(variations, totalColumns) {
+        return variations.map(variation => ({
+            variation,
+            responsive: this.getResponsiveLayout(variation, totalColumns)
+        }));
     }
 };

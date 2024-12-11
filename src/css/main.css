@@ -4,6 +4,7 @@
 @import 'components/grid.css';
 @import 'components/cards.css';
 @import 'components/export.css';
+@import 'components/breakpoints.css';
 
 /* Layout */
 .calculator-container {
