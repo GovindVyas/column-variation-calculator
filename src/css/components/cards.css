@@ -45,3 +45,57 @@
         grid-template-columns: 1fr;
     }
 }
+
+.code-suggestions {
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--white);
+    border: 1px solid rgba(188, 137, 255, 0.3);
+    border-radius: var(--radius-md);
+}
+
+.code-suggestions h4 {
+    color: var(--secondary-color);
+    margin-bottom: var(--spacing-sm);
+    font-size: 0.95rem;
+}
+
+.code-block {
+    background: rgba(188, 137, 255, 0.1);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-sm);
+    font-family: monospace;
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    margin-bottom: var(--spacing-sm);
+    position: relative;
+}
+
+.code-block:last-child {
+    margin-bottom: 0;
+}
+
+.copy-code {
+    position: absolute;
+    right: var(--spacing-sm);
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--white);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 2px var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.code-block:hover .copy-code {
+    opacity: 1;
+}
+
+.copy-code:hover {
+    background: var(--primary-color);
+    color: var(--white);
+}

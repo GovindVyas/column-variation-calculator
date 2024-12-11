@@ -8,6 +8,30 @@ export const ui = {
         elements.errorMessage.style.display = 'block';
     },
 
+    generateCSSCode(variation, totalColumns) {
+        const frValues = variation.map(col => `${col}fr`).join(' ');
+        const percentValues = variation.map(col => `${(col / totalColumns * 100).toFixed(2)}%`).join(' ');
+        
+        return `
+            <div class="code-suggestions">
+                <h4>CSS Code Snippets:</h4>
+                <div class="code-block">
+                    grid-template-columns: ${frValues};
+                    <button class="copy-code" data-code="grid-template-columns: ${frValues};">Copy</button>
+                </div>
+                <div class="code-block">
+                    display: flex;
+                    & > * {
+                        width: ${percentValues};
+                    }
+                    <button class="copy-code" data-code="display: flex;
+                    & > * {
+                        width: ${percentValues};
+                    }">Copy</button>
+                </div>
+            </div>`;
+    },
+
     generateBreakpointGrid(variation, totalColumns, breakpoint) {
         const percentageSplit = variation
             .map(col => utils.formatPercentage(col, totalColumns))
@@ -28,7 +52,27 @@ export const ui = {
                     }).join('')}
                 </div>
                 <div class="split-percentage">${percentageSplit}</div>
+                ${breakpoint === 'desktop' ? this.generateCSSCode(variation, totalColumns) : ''}
             </div>`;
+    },
+
+    setupCodeCopyHandlers() {
+        document.querySelectorAll('.copy-code').forEach(button => {
+            button.addEventListener('click', async (e) => {
+                e.stopPropagation();
+                const code = button.dataset.code;
+                try {
+                    await navigator.clipboard.writeText(code);
+                    const originalText = button.textContent;
+                    button.textContent = 'Copied!';
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                    }, 2000);
+                } catch (err) {
+                    console.error('Failed to copy code:', err);
+                }
+            });
+        });
     },
 
     generateVariationCard(variationData, totalColumns) {
@@ -51,6 +95,9 @@ export const ui = {
         elements.variationsGrid.innerHTML = responsiveVariations
             .map(variation => this.generateVariationCard(variation, totalColumns))
             .join('');
+        
+        // Setup code copy handlers
+        this.setupCodeCopyHandlers();
         
         // Show export buttons
         elements.exportContainer.style.display = 'flex';
