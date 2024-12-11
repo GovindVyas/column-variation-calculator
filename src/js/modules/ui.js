@@ -4,7 +4,6 @@ export const ui = {
     showError(message, elements) {
         elements.errorMessage.textContent = message;
         elements.errorMessage.style.display = 'block';
-        utils.clearResults(elements);
     },
 
     generateVariationCard(variation, totalColumns) {

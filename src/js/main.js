@@ -31,6 +31,8 @@ function handleSubmit(e) {
 
 function handleReset() {
     utils.clearResults(elements);
+    elements.errorMessage.textContent = '';
+    elements.errorMessage.style.display = 'none';
 }
 
 // Event Listeners

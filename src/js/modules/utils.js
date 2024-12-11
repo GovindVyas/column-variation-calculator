@@ -31,7 +31,9 @@ export const utils = {
     },
 
     clearResults(elements) {
-        elements.errorMessage.style.display = 'none';
+        if (elements.errorMessage.textContent === '') {
+            elements.errorMessage.style.display = 'none';
+        }
         elements.resultsHeader.textContent = '';
         elements.variationsGrid.innerHTML = '';
     }
