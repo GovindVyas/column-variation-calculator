@@ -1,4 +1,5 @@
 import { utils } from './utils.js';
+import { exportUtils } from './export.js';
 
 export const ui = {
     showError(message, elements) {
@@ -42,5 +43,36 @@ export const ui = {
         elements.variationsGrid.innerHTML = variations
             .map(variation => this.generateVariationCard(variation, totalColumns))
             .join('');
+        
+        // Show export buttons
+        elements.exportContainer.style.display = 'flex';
+    },
+
+    setupExportHandlers(elements, variations, totalColumns) {
+        elements.exportJSON.addEventListener('click', () => {
+            const json = exportUtils.generateJSON(variations, totalColumns);
+            exportUtils.downloadFile(json, 'grid-variations.json');
+        });
+
+        elements.exportCSV.addEventListener('click', () => {
+            const csv = exportUtils.generateCSV(variations, totalColumns);
+            exportUtils.downloadFile(csv, 'grid-variations.csv');
+        });
+
+        elements.exportHTML.addEventListener('click', () => {
+            const html = exportUtils.generateHTML(variations, totalColumns);
+            exportUtils.downloadFile(html, 'grid-variations.html');
+        });
+
+        elements.copyClipboard.addEventListener('click', async () => {
+            const success = await exportUtils.copyToClipboard(variations, totalColumns);
+            if (success) {
+                const originalText = elements.copyClipboard.innerHTML;
+                elements.copyClipboard.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    elements.copyClipboard.innerHTML = originalText;
+                }, 2000);
+            }
+        });
     }
 };

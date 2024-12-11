@@ -9,7 +9,12 @@ const elements = {
     splitsInput: document.getElementById('splits'),
     errorMessage: document.getElementById('error-message'),
     resultsHeader: document.getElementById('results-header'),
-    variationsGrid: document.getElementById('variations')
+    variationsGrid: document.getElementById('variations'),
+    exportContainer: document.getElementById('export-container'),
+    exportJSON: document.getElementById('export-json'),
+    exportCSV: document.getElementById('export-csv'),
+    exportHTML: document.getElementById('export-html'),
+    copyClipboard: document.getElementById('copy-clipboard')
 };
 
 // Event Handlers
@@ -24,6 +29,7 @@ function handleSubmit(e) {
         const variations = calculator.calculateSplits(totalColumns, splits);
         utils.clearResults(elements);
         ui.displayResults(variations, totalColumns, elements);
+        ui.setupExportHandlers(elements, variations, totalColumns);
     } catch (error) {
         ui.showError(error.message, elements);
     }
@@ -31,6 +37,7 @@ function handleSubmit(e) {
 
 function handleReset() {
     utils.clearResults(elements);
+    elements.exportContainer.style.display = 'none';
 }
 
 // Event Listeners
