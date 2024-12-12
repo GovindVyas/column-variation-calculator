@@ -48,6 +48,7 @@ A powerful web-based tool designed to help developers and designers calculate an
 
 ## Project Structure
 
+```
 column-variation-calculator/
 ├── src/
 │   ├── js/
@@ -74,6 +75,7 @@ column-variation-calculator/
 ├── tests/
 ├── .gitignore
 └── README.md
+```
 
 `````````````````````````````````
 
