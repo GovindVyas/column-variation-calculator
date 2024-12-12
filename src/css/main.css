@@ -22,3 +22,27 @@
         padding: var(--spacing-lg);
     }
 }
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    font-family: 'Poppins', sans-serif;
+    color: var(--secondary-color);
+}
+
+.footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.footer .fa-heart {
+    animation: heartbeat 1.5s ease infinite;
+}
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
