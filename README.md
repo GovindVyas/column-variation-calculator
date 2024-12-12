@@ -1,3 +1,5 @@
+![CSS Grid Column Variation Calculator](/repository/assets/grid-column-variation-calculator?raw=true "Grid Column Variation Calculator")
+
 # Grid Column Variation Calculator
 
 A powerful web-based tool designed to help developers and designers calculate and visualize different column split variations for responsive grid layouts. This tool generates ready-to-use code snippets and provides visual previews across different breakpoints.
@@ -77,20 +79,20 @@ column-variation-calculator/
 └── README.md
 ```
 
-### Core Modules
+## Core Modules
 
-#### Calculator Module
+### Calculator Module
 - Handles column split calculations
 - Generates responsive variations
 - Validates input combinations
 
-#### UI Module
+### UI Module
 - Manages DOM interactions
 - Generates visual previews
 - Handles error messaging
 - Creates code suggestions
 
-#### Export Module
+### Export Module
 - Generates JSON output
 - Creates CSV format
 - Produces HTML/CSS templates
