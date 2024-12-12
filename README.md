@@ -1,4 +1,4 @@
-![CSS Grid Column Variation Calculator](/repository/public/assets/grid-column-variation-calculator?raw=true "Grid Column Variation Calculator")
+![CSS Grid Column Variation Calculator](/column-variation-calculator/public/assets/grid-column-variation-calculator?raw=true "Grid Column Variation Calculator")
 
 # Grid Column Variation Calculator
 
