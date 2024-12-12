@@ -1,5 +1,3 @@
-![CSS Grid Column Variation Calculator](/column-variation-calculator/public/assets/grid-column-variation-calculator?raw=true "Grid Column Variation Calculator")
-
 # Grid Column Variation Calculator
 
 A powerful web-based tool designed to help developers and designers calculate and visualize different column split variations for responsive grid layouts. This tool generates ready-to-use code snippets and provides visual previews across different breakpoints.
